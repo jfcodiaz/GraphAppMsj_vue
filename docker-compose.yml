@@ -6,8 +6,10 @@ services:
     image: node:lts
     working_dir: /app/code
     hostname: ${PROJECT_PREFIX}-node
-    container_name: ${PROJECT_PREFIX}-node
+    container_name: ${PROJECT_PREFIX}
     volumes:
+      - ./docker/config/dev/ssh:/root/.ssh/
+      - ./docker/config/dev/git/.gitconfig:/root/.gitconfig
       - .:/app
     ports:
       - ${VUE_DEV_PORT}:8080
