@@ -1,0 +1,11 @@
+services:
+  node-app:
+    image: node:lts
+    working_dir: /app/code
+    hostname: ${PROJECT_PREFIX}-node
+    container_name: ${PROJECT_PREFIX}-node
+    volumes:
+      - .:/app
+    ports:
+      - ${VUE_DEV_PORT}:3000
+    command: tail -f /dev/null
