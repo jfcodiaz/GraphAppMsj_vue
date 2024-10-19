@@ -1,5 +1,8 @@
 services:
   node-app:
+    build:
+      context: .
+      dockerfile: ./docker/images/node/Dockerfile
     image: node:lts
     working_dir: /app/code
     hostname: ${PROJECT_PREFIX}-node
@@ -7,5 +10,5 @@ services:
     volumes:
       - .:/app
     ports:
-      - ${VUE_DEV_PORT}:3000
+      - ${VUE_DEV_PORT}:8080
     command: tail -f /dev/null
