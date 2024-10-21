@@ -1,8 +1,10 @@
 <template>
-    <div class="message-box" :class="messageClass">
-        {{ message.text }}
-        {{ message.userId }}
-    </div>
+    <transition :name="messageClass">
+        <div class="message-box" :class="messageClass">
+            {{ message.text }}
+            {{ message.userId }}
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -20,8 +22,8 @@ export default {
         }
     },
     setup(props) {
-        const isSent = () => props.message.userId == props.me.id ? 'sent' : 'received'
-        const messageClass = computed(isSent);  
+        const isSent = () => props.message.userId == props.me.id ? 'sent' : 'received';
+        const messageClass = computed(isSent);
         return {
             messageClass
         };
@@ -72,5 +74,34 @@ export default {
     border-color: transparent #fff transparent transparent;
     top: 10px;
     left: -10px;
+}
+
+/* Transiciones de mensajes */
+.sent-enter-active, .sent-leave-active {
+    transition: transform 0.5s ease, opacity 1.5s ease;
+}
+
+.sent-enter {
+    transform: translateX(100%) scale(0.5);
+    opacity: 0;
+}
+
+.sent-leave-to {
+    transform: translateX(100%) scale(0.5);
+    opacity: 0;
+}
+
+.received-enter-active, .received-leave-active {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.received-enter {
+    transform: translateX(-100%) scale(0.5);
+    opacity: 0;
+}
+
+.received-leave-to {
+    transform: translateX(-100%) scale(0.5);
+    opacity: 0;
 }
 </style>

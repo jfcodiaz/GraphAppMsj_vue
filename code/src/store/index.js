@@ -25,9 +25,6 @@ const store = createStore({
     setUser(state, user) {
       state.user = user;
     },
-    addMessage(state, message) {
-      state.messages.push(message);
-    },
     setMessages(state, messages) {
       const sortedMessages = [...messages.data].reverse();
       state.messages=[ ...sortedMessages, ...state.messages];
@@ -48,12 +45,11 @@ const store = createStore({
         });        
         commit('join', user);
     },
-    async sendMessage({ commit }, text) {
-      const msj = await MessageRepository.sendMessage({
+    async sendMessage(_, text) {
+      await MessageRepository.sendMessage({
         userId: this.state.user.id, 
         text
       });
-      commit('addMessage', msj);
     },
     async fetchHello({ commit }) {
         const message = await HelloRepository.fetchHello();
