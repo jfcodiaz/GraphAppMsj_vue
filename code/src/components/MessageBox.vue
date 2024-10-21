@@ -1,26 +1,30 @@
 <template>
-    <div class="message-box" :class="{'sent': isSent, 'received': !isSent}">
-        <p>{{ message }}</p>
-        <p>{{ msj.user_1 }}</p>
+    <div class="message-box" :class="messageClass">
+        {{ message.text }}
+        {{ message.userId }}
     </div>
 </template>
 
 <script>
+import { computed } from 'vue';
+
 export default {
-    name: 'MessageBox',
     props: {
         message: {
-            type: String,
+            type: Object,
             required: true
         },
-        isSent: {
-            type: Boolean,
-            default: false
-        },
-        msj: {
+        me: {
             type: Object,
             required: true
         }
+    },
+    setup(props) {
+        const isSent = () => props.message.userId == props.me.id ? 'sent' : 'received'
+        const messageClass = computed(isSent);  
+        return {
+            messageClass
+        };
     }
 }
 </script>

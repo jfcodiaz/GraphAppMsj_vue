@@ -4,7 +4,6 @@
         <button @click="sendMessage">Send</button>
         <br>
     </div>
-    <pre style="text-align: left;">{{ messages }}</pre>
 </template>
 <script>
 import { useStore } from 'vuex';

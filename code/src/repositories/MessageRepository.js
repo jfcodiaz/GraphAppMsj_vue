@@ -12,6 +12,7 @@ export default {
           id
           userId
           text
+          createdAt
         }
       }
     `;
@@ -25,5 +26,36 @@ export default {
     });
 
     return response.data.message;
+  },
+  async fetchMessages({ startDate, page, limit }) {
+    const GET_MESSAGES = gql`
+      query(
+        $startDate: String!
+        $page: Int!
+        $limit: Int!
+      ) {
+        messages(startDate: $startDate, page: $page, limit: $limit) {
+          data {
+            id
+            userId
+            text,
+            createdAt
+          }
+          total
+          totalPages
+        }
+      }
+    `;
+    const response = await apolloClient.query({
+      query: GET_MESSAGES,
+      variables: {
+        startDate,
+        page,
+        limit
+      },
+      fetchPolicy: 'network-only'
+    });
+
+    return response.data.messages;
   }
 };

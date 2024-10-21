@@ -1,37 +1,22 @@
 import { createStore } from 'vuex';
-import HelloRepository from '../repositories/HelloRepository';
 import UserRepository from '@/repositories/UserRepository';
+import HelloRepository from '../repositories/HelloRepository';
 import MessageRepository from '@/repositories/MessageRepository';
 
 const store = createStore({
   state: {
+    page: 1,
+    limit: 10,
+    startDate: new Date().toISOString(),
     user: {
-      id: "6714af8ea84730b964a92b4f",
+      id: "6715373aa0274817ff381213",
       username: 'John Doe'
     },
     helloMessage: '',
-    messages: [
-      {
-        id: 1,
-        text: 'Hello World',
-        idUser: 1
-      },
-      {
-        id: 1,
-        text: 'Hello World',
-        idUser: 1
-      },
-      {
-        id: 1,
-        text: 'Hello World',
-        idUser: 1
-      }
-    ]
+    messages: []
   },
-  
   mutations: {
     join(state, user) {
-        console.log("Join Mutation");
       state.user = user;
     },
     setHelloMessage(state, message) {
@@ -42,18 +27,26 @@ const store = createStore({
     },
     addMessage(state, message) {
       state.messages.push(message);
+    },
+    setMessages(state, messages) {
+      const sortedMessages = [...messages.data].reverse();
+      state.messages=[ ...sortedMessages, ...state.messages];
     }
   },
-
   actions: {
+    async fetchMessages({ commit }) {
+      const messages = await MessageRepository.fetchMessages({
+        startDate: this.state.startDate,
+        page: this.state.page, 
+        limit: this.state.limit
+      });
+      commit('setMessages', messages);
+    },
     async join({ commit }, {username}) {
         const user = await UserRepository.join({
             username
         });        
         commit('join', user);
-    },
-    login({ commit }, user) {
-      commit('setUser', user);
     },
     async sendMessage({ commit }, text) {
       const msj = await MessageRepository.sendMessage({
