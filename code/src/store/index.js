@@ -1,12 +1,32 @@
 import { createStore } from 'vuex';
 import HelloRepository from '../repositories/HelloRepository';
 import UserRepository from '@/repositories/UserRepository';
+import MessageRepository from '@/repositories/MessageRepository';
 
 const store = createStore({
   state: {
-    user: null,
+    user: {
+      id: "6714af8ea84730b964a92b4f",
+      username: 'John Doe'
+    },
     helloMessage: '',
-    messages: []
+    messages: [
+      {
+        id: 1,
+        text: 'Hello World',
+        idUser: 1
+      },
+      {
+        id: 1,
+        text: 'Hello World',
+        idUser: 1
+      },
+      {
+        id: 1,
+        text: 'Hello World',
+        idUser: 1
+      }
+    ]
   },
   
   mutations: {
@@ -35,8 +55,12 @@ const store = createStore({
     login({ commit }, user) {
       commit('setUser', user);
     },
-    sendMessage({ commit }, message) {
-      commit('addMessage', message);
+    async sendMessage({ commit }, text) {
+      const msj = await MessageRepository.sendMessage({
+        userId: this.state.user.id, 
+        text
+      });
+      commit('addMessage', msj);
     },
     async fetchHello({ commit }) {
         const message = await HelloRepository.fetchHello();
@@ -45,8 +69,8 @@ const store = createStore({
   },
 
   getters: {
+    messages: (state) => state.messages,
     getUser: (state) => state.user,
-    getMessages: (state) => state.messages,
     getHelloMessage(state) {
         return state.helloMessage;
     }

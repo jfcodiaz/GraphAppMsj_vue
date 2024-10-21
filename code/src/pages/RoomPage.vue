@@ -18,8 +18,8 @@
         >X</router-link>
         </span>
         <h1
-        style="
-        background-color: blue;
+            style="
+            background-color: blue;
         "
         >GraphApp Messeger</h1>
         <div class="messages">
@@ -33,15 +33,14 @@
         </div>
         <div>{{ messages }}</div>
         <div>{{ me.id }}</div>
-        <div class="input-area">
-            <input v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type your message..." />
-            <button @click="sendMessage">Send</button>
-        </div>
+        <MessageForm/>        
     </div>
 </template>
 
 <script>
 import Message from '@/components/Message.vue';
+import MessageForm from '@/components/MessageForm.vue';
+
 export default {
     data() {
         return {
@@ -74,20 +73,9 @@ export default {
             newMessage: ''
         };
     },
-    methods: {
-        sendMessage() {
-            if (this.newMessage.trim() !== '') {
-                this.messages.push({
-                    id: Date.now(),
-                    user_id: 1,
-                    text: this.newMessage
-                });
-                this.newMessage = '';
-            }
-        }
-    },
     components: {
-        Message
+        Message,
+        MessageForm
     }
 };
 </script>
@@ -115,28 +103,5 @@ export default {
     margin-bottom: 10px;
 }
 
-.input-area {
-    display: flex;
-}
 
-input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px 20px;
-    margin-left: 10px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
 </style>
