@@ -21,4 +21,13 @@ const router = createRouter({
   routes
 });
 
+router.beforeEach((to, from, next) => {
+  const storedUser = sessionStorage.getItem('user');
+  if (!storedUser && to.path !== '/') {
+    next('/');
+  } else {
+    next();
+  }
+});
+
 export default router;

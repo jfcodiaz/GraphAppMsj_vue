@@ -24,7 +24,7 @@ const store = createStore({
     },
     setMessages(state, messages) {
       const sortedMessages = [...messages.data].reverse();
-      state.messages=[ ...sortedMessages, ...state.messages];
+      state.messages = [ ...sortedMessages, ...state.messages];
     }
   },
   actions: {
@@ -36,11 +36,10 @@ const store = createStore({
       });
       commit('setMessages', messages);
     },
-    async join({ commit }, {username}) {
-        const user = await UserRepository.join({
-            username
-        });        
-        commit('join', user);
+    async join({ commit }, { username }) {
+      const user = await UserRepository.join({ username });
+      commit('join', user);
+      sessionStorage.setItem('user', JSON.stringify(user));
     },
     async sendMessage(_, text) {
       await MessageRepository.sendMessage({
@@ -49,18 +48,26 @@ const store = createStore({
       });
     },
     async fetchHello({ commit }) {
-        const message = await HelloRepository.fetchHello();
-        commit('setHelloMessage', message); 
+      const message = await HelloRepository.fetchHello();
+      commit('setHelloMessage', message); 
+    },
+    initializeUser({ commit }) {
+      const storedUser = sessionStorage.getItem('user');
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        commit('setUser', user);
+      }
     }
   },
-
   getters: {
     messages: (state) => state.messages,
     getUser: (state) => state.user,
     getHelloMessage(state) {
-        return state.helloMessage;
+      return state.helloMessage;
     }
   }
 });
+
+store.dispatch('initializeUser');
 
 export default store;

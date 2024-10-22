@@ -22,7 +22,13 @@ export default {
         }
     },
     setup(props) {
-        const isSent = () => props.message.userId == props.me.id ? 'sent' : 'received';
+        const isSent = () => {
+            if(!props.me) {
+                return;
+            }
+
+            return props.message.userId == props.me.id ? 'sent' : 'received';
+        };
         const messageClass = computed(isSent);
         return {
             messageClass
