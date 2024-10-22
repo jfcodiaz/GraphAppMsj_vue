@@ -30,29 +30,42 @@ export default {
 }
 
 </script>
-<style scoped>
+<style scoped lang="scss">
+  @use "@/styles/_variables.scss" as vars;
     .input-area {
-        display: flex;
+      margin-top: 2em;
+      display: flex;
     }
 
     input {
         flex: 1;
         padding: 10px;
-        border: 1px solid #ccc;
+        border: 1px solid vars.$color-4;
         border-radius: 5px;
+        font-size: 1.5em;
+        color: vars.$color-1;
+        background-color: vars.$color-2;
+        width: 100%;
     }
 
     button {
         padding: 10px 20px;
         margin-left: 10px;
         border: none;
-        background-color: #007bff;
+        background-color: vars.$color-5;
         color: white;
         border-radius: 5px;
         cursor: pointer;
     }
 
     button:hover {
-        background-color: #0056b3;
+        background-color: vars.$color-1;
     }
+    @media (max-width: 700px) {
+      .input-area  {
+        margin-top: 0;
+        display: flex;
+        padding: 1em;
+     }
+  }
 </style>

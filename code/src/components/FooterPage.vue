@@ -23,7 +23,7 @@ export default {
   @use "@/styles/_variables.scss" as vars;
   
   footer {
-    background-color: vars.$bg-primary;
+    background-color: vars.$color-3;
     padding: 25px 20px 35px 20px;
     text-align: center;
     line-height: 1.5;
@@ -32,5 +32,15 @@ export default {
     color: vars.$text-primary;
     font-weight: bold;
     text-decoration: none;
+  }
+
+  @media (max-width: 700px) {
+    footer {
+      padding: 0.5em 2em;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      ;
+    }  
   }
 </style>

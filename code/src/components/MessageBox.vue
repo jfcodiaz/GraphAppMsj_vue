@@ -1,16 +1,23 @@
 <template>
     <transition :name="messageClass">
         <div class="message-box" :class="messageClass">
+            <div class="autor" v-if="messageClass == 'received'">
+                <b>{{ message.user.username }}</b> :
+            </div>
             {{ message.text }}
-            {{ message.userId }}
+            <TimeAgo :date-string="message.createdAt"/>
         </div>
     </transition>
 </template>
 
 <script>
 import { computed } from 'vue';
-
+import { formatDistanceToNow } from 'date-fns';
+import TimeAgo from './TimeAgo.vue';
 export default {
+    components: {
+        TimeAgo
+    },
     props: {
         message: {
             type: Object,
@@ -29,16 +36,27 @@ export default {
 
             return props.message.userId == props.me.id ? 'sent' : 'received';
         };
+        const formattedDate = computed(() => formatDistanceToNow(new Date(props.message.createdAt), { addSuffix: true }));
         const messageClass = computed(isSent);
         return {
-            messageClass
+            messageClass,
+            formattedDate
         };
     }
 }
 </script>
 
-<style scoped>
-.message-box {
+<style scoped lang="scss">
+  @use "@/styles/_variables.scss" as vars;
+  .message {
+    margin-bottom: 10px;
+  }
+
+  .autor {
+    font-size: 0.8em;
+    color: vars.$color-3;
+  }
+  .message-box {
     max-width: 60%;
     padding: 10px;
     margin: 10px;
@@ -46,18 +64,22 @@ export default {
     position: relative;
     word-wrap: break-word;
 
-    color: blue !important;
+    color: vars.$color-4;
     font-family: sans-serif;
-}
+  }
 
+  .message-box.received {
+    color: vars.$color-5;
+  }
+  
 .sent {
+    color: vars.$color-4;
     background-color: #dcf8c6;
-    align-self: flex-end;
+    justify-self: end;
 }
 
 .received {
-    background-color: #fff;
-    align-self: flex-start;
+    background-color: vars.$color-2;
 }
 
 .sent::after, .received::after {
@@ -72,42 +94,14 @@ export default {
     border-width: 10px 0 10px 10px;
     border-color: transparent transparent transparent #dcf8c6;
     top: 10px;
-    right: -10px;
+    right: -9px;
 }
 
 .received::after {
     border-width: 10px 10px 10px 0;
-    border-color: transparent #fff transparent transparent;
+    border-color: transparent vars.$color-2 transparent transparent;
     top: 10px;
-    left: -10px;
+    left: -9px;
 }
 
-/* Transiciones de mensajes */
-.sent-enter-active, .sent-leave-active {
-    transition: transform 0.5s ease, opacity 1.5s ease;
-}
-
-.sent-enter {
-    transform: translateX(100%) scale(0.5);
-    opacity: 0;
-}
-
-.sent-leave-to {
-    transform: translateX(100%) scale(0.5);
-    opacity: 0;
-}
-
-.received-enter-active, .received-leave-active {
-    transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
-.received-enter {
-    transform: translateX(-100%) scale(0.5);
-    opacity: 0;
-}
-
-.received-leave-to {
-    transform: translateX(-100%) scale(0.5);
-    opacity: 0;
-}
 </style>

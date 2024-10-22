@@ -10,7 +10,7 @@ header {
   text-align: center;
   font-family: vars.$font-family-primary;
   font-size: 1.1em;
-  background-color: vars.$bg-primary;
+  background-color: vars.$color-3;
   padding: 25px 0;
 }
 </style>

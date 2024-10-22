@@ -49,7 +49,7 @@ export default {
 
   body {
     background-color: vars.$bg-primary;
-    background: linear-gradient(0deg, vars.$bg-quaternary, 30%, vars.$bg-primary);
+    background: linear-gradient(12deg, vars.$bg-quaternary, 30%, vars.$bg-primary);
     height: 100vh;
     color: vars.$text-primary;
     font-family: sans-serif;
@@ -61,7 +61,7 @@ export default {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 0px;
-    background-color: vars.$bg-secondary;
+    background-color: vars.$color-1;
     box-shadow: #000000b5 0px 0 19px 3px;
     display: flex;
     flex-direction: column;
@@ -69,14 +69,21 @@ export default {
     width: 70%;
   }
 
+  .web-container {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+  }
+
   @media (max-width: 700px) {
     .main-container {
         width: 100%;
     }
+    .web-container {
+      padding: 0px;
+      box-shadow: none;
+    }
   }
 
-  .web-container {
-    flex: 1;
-    padding: 20px;
-  }
+  
 </style>

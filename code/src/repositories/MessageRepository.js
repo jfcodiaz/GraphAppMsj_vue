@@ -10,9 +10,6 @@ export default {
       ) {
         message(userId: $userId, text: $text) {
           id
-          userId
-          text
-          createdAt
         }
       }
     `;
@@ -38,8 +35,12 @@ export default {
           data {
             id
             userId
-            text,
+            text
             createdAt
+            user {
+              id
+              username
+            }
           }
           total
           totalPages

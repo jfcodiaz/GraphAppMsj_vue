@@ -23,6 +23,10 @@ const MESSAGE_CREATED_SUBSCRIPTION = gql`
       text
       userId
       createdAt
+      user {
+        id
+        username
+      }
     }
   }
 `;
@@ -37,32 +41,28 @@ export default {
     const me = computed(() => store.getters.getUser);
     const fetchMessages = () => store.dispatch('fetchMessages');
 
-    // Referencia al contenedor de mensajes
     const messageList = ref(null);
 
-    // Función para manejar el scroll inverso (cargar mensajes antiguos)
     const handleScroll = () => {
       if (messageList.value && messageList.value.scrollTop === 0) {
         loadPreviousMessages();
       }
     };
 
-    // Simulación de carga de mensajes antiguos
     const loadPreviousMessages = () => {
       const oldMessages = [
         { id: 'old1', text: 'Mensaje anterior 1', userId: '123', createdAt: new Date().toISOString() },
         { id: 'old2', text: 'Mensaje anterior 2', userId: '123', createdAt: new Date().toISOString() }
       ];
-      // Agregar mensajes antiguos al principio de la lista
       messages.value.unshift(...oldMessages);
     };
 
-    // Function to determine if the scroll is near the end (90%)
+
     const shouldScroll = () => {
       const container = messageList.value;
       if (!container) return false;
       const scrollPosition = container.scrollTop + container.clientHeight;
-      const scrollThreshold = container.scrollHeight * 0.9;
+      const scrollThreshold = container.scrollHeight * 0.7;
       return scrollPosition >= scrollThreshold;
     };
 
@@ -99,8 +99,8 @@ export default {
     return {
       me,
       messages,
-      messageList, // Asignar el contenedor de mensajes
-      handleScroll, // Asignar el método para manejar el scroll
+      messageList,
+      handleScroll,
     };
   },
 };
@@ -108,9 +108,13 @@ export default {
 
 <style scoped>
 .messages {
-  max-height: 400px;
+  max-height: 100%;
   overflow-y: auto;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd14;
   padding: 10px;
+  
+}
+.message {
+  display: grid;
 }
 </style>

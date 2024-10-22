@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <ChatRoom></ChatRoom>
-    </div>
+    <ChatRoom></ChatRoom>
 </template>
 
 <script>
