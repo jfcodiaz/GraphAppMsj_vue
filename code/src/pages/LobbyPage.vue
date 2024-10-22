@@ -1,77 +1,59 @@
 <template>
+  <ContentContainer>
     <div class="lobby">
-        <div>
-            <h1>GraphQL Query Result</h1>
-            <p v-if="helloMessage">{{ helloMessage }}</p>
-        </div>
-        <h1>Welcome to the Lobby</h1>
-        <p>Please select a room to join: {{ username }}</p>
-        <form @submit.prevent="login">
-            <input v-model="username" type="text" placeholder="Enter your username" />
-            <input type="submit" value="Join" />
-        </form>
-        <div v-if="storedUsername">
-            <p><strong>Username en el store:</strong> {{ storedUsername }}</p>
-        </div>
+      <h1>Welcome</h1>
+      <LobbyForm />
     </div>
+  </ContentContainer>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
+import ContentContainer from '@/components/ContentContainer.vue';
+import LobbyForm from '@/components/LobbyForm.vue';
 
 export default {
-    setup() {
-        const store = useStore();
-        const fetchHello = () => {
-            store.dispatch('fetchHello');
-        };
-        const router = useRouter(); 
-        fetchHello();
-        const username = ref('');
-        const storedUsername = computed(() => store.getters.getUser);
-        const login = () => {
-            if (username.value.trim() !== '') {
-                store.dispatch('join', {username: username.value});
-                router.push('/room');
-            } else {
-                console.log('Por favor ingresa un nombre de usuario');
-            }
-        };
-        const helloMessage = computed(() => store.getters.getHelloMessage);
-        return {
-            helloMessage,
-            fetchHello,
-            login,
-            username,
-            storedUsername  
-        };
-    }
+  components: {
+    ContentContainer,
+    LobbyForm
+  },
+  setup() {
+    onMounted(() => {
+      document.title = 'GraphApp Messenger :: Lobby Page';
+    });
+  },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+@use "@/styles/_variables.scss" as vars;
+
+h1 {
+    margin: 0.5em 0;
+    font-size: 2.5em;
+}
+
 .lobby {
-    text-align: center;
-    margin-top: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f0f0f038;
+  max-width: 800px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
 }
 
-.lobby ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.lobby li {
-    margin: 10px 0;
-}
-
-.lobby a {
-    text-decoration: none;
-    color: #42b983;
-}
-
-.lobby a:hover {
-    text-decoration: underline;
+@media (max-width: 600px) {
+    .lobby {
+        padding: 10px;
+        width: 70%;
+    }
 }
 </style>

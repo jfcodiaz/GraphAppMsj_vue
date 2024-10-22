@@ -8,10 +8,7 @@ const store = createStore({
     page: 1,
     limit: 10,
     startDate: new Date().toISOString(),
-    user: {
-      id: "6715373aa0274817ff381213",
-      username: 'John Doe'
-    },
+    user: null,
     helloMessage: '',
     messages: []
   },
