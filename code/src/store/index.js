@@ -23,6 +23,7 @@ const store = createStore({
       state.user = user;
     },
     setMessages(state, messages) {
+      state.page++;
       const sortedMessages = [...messages.data].reverse();
       state.messages = [ ...sortedMessages, ...state.messages];
     }
