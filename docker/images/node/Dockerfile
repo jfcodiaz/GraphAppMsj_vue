@@ -6,7 +6,7 @@ RUN npm install -g @vue/cli \
 # Clone and build backend
 FROM base AS backend 
 WORKDIR /app
-RUN git clone https://github.com/jfcodiaz/GraphAppMsj-Api.git && \
+RUN git clone --branch latest https://github.com/jfcodiaz/GraphAppMsj-Api.git && \
     cd GraphAppMsj-Api/code && \
     yarn install
 
