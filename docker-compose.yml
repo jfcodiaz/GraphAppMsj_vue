@@ -1,8 +1,25 @@
 services:
+  app-dist:
+    build: 
+      context: .
+      dockerfile: ./docker/images/node/Dockerfile 
+      target: dist
+    profiles:
+      - dist
+    container_name: ${PROJECT_PREFIX}-dist
+    hostname: ${PROJECT_PREFIX}-dist
+    ports:
+      - ${APP_WEB_DIST_PORT}:80
+      - 27017:27017
+      - 4000:4000
+    env_file:
+      - .env
+
   node-app:
     build:
       context: .
       dockerfile: ./docker/images/node/Dockerfile
+      target: dev
     image: node:lts
     working_dir: /app/code
     hostname: ${PROJECT_PREFIX}-node
@@ -10,7 +27,8 @@ services:
     volumes:
       - ./docker/config/dev/ssh:/root/.ssh/
       - ./docker/config/dev/git/.gitconfig:/root/.gitconfig
+      - ./docker/config/dev/node/init-script.sh:/usr/local/bin/init-script.sh
       - .:/app
     ports:
       - ${VUE_DEV_PORT}:8080
-    command: tail -f /dev/null
+    command: sh /usr/local/bin/init-script.sh
