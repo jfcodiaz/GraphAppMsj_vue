@@ -6,7 +6,7 @@ import MessageRepository from '@/repositories/MessageRepository';
 const store = createStore({
   state: {
     page: 1,
-    limit: 10,
+    limit: 50,
     startDate: new Date().toISOString(),
     user: null,
     helloMessage: '',
@@ -15,6 +15,7 @@ const store = createStore({
   mutations: {
     join(state, user) {
       state.user = user;
+      state.startDate = new Date().toISOString()
     },
     setHelloMessage(state, message) {
       state.helloMessage = message;
@@ -26,6 +27,12 @@ const store = createStore({
       state.page++;
       const sortedMessages = [...messages.data].reverse();
       state.messages = [ ...sortedMessages, ...state.messages];
+    },
+    clean(state) {
+      state.page = 1;
+      state.startDate = null;
+      state.user = null;
+      state.messages = [];
     }
   },
   actions: {
@@ -41,6 +48,10 @@ const store = createStore({
       const user = await UserRepository.join({ username });
       commit('join', user);
       sessionStorage.setItem('user', JSON.stringify(user));
+    },
+    async clean({ commit } ) {
+      commit('clean');
+      sessionStorage.removeItem('user');
     },
     async sendMessage(_, text) {
       await MessageRepository.sendMessage({

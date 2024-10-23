@@ -38,22 +38,33 @@ export default {
     });
 
     const validateUsername = (event) => {
-      const regex = /^[a-zA-Z0-9]*$/; // Only letters and numbers
+      if (event.inputType === 'insertLineBreak') {
+        return event;
+      }
+      const regex = /^[a-zA-Z0-9]*$/; // Solo letras y números
       if (!regex.test(event.target.value)) {
         username.value = event.target.value.replace(/[^a-zA-Z0-9]/g, '');
       }
     };
 
-    const login = () => {
+    const login = async () => {
       errorMessage.value = '';
+
+      // Validar nombre de usuario
       if (username.value.trim() === '') {
         errorMessage.value = 'Please enter a username.';
+        return;
       } else if (/^\d/.test(username.value)) {
         errorMessage.value = 'The username cannot start with a number.';
-      } else {
+        return;
+      }
+
+      try {
+        await store.dispatch('join', { username: username.value });
         localStorage.setItem('username', username.value);
-        store.dispatch('join', { username: username.value });
         router.push('/room');
+      } catch (error) {
+        errorMessage.value = 'An error occurred while joining the room.';
       }
     };
 
@@ -68,22 +79,22 @@ export default {
 </script>
 
 <style scoped>
+input[type="text"],
+input[type="submit"] {
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 10px 0;
+  border-radius: 5px;
+  max-width: 400px;
+  font-size: 1.5em;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
   input[type="text"],
   input[type="submit"] {
-    padding: 10px;
-    box-sizing: border-box;
-    margin: 10px 0;
-    border-radius: 5px;
-    max-width: 400px;
-    font-size: 1.5em;
-    width: 100%;
+    padding: 5px;
+    font-size: 1em;
   }
-
-  @media (max-width: 600px) {
-    input[type="text"],
-    input[type="submit"] {
-      padding: 5px;
-      font-size: 1em;
-    }
-  }
+}
 </style>

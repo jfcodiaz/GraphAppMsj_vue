@@ -1,5 +1,6 @@
 <template>
   <div class="chat-room">
+    <MenuBar/>
     <MessagesList/>
     <MessageForm/>        
   </div>
@@ -7,11 +8,12 @@
 <script>
 import MessageForm from './MessageForm.vue';
 import MessagesList from './MessagesList.vue';
-
+import MenuBar from './MenuBar.vue'
 export default {
   components: {
     MessagesList,
-    MessageForm
+    MessageForm,
+    MenuBar
   }
 }
 </script>

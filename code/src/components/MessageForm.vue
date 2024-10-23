@@ -13,7 +13,7 @@ export default {
   name: 'MessageForm',
   setup() {
     const store = useStore();
-    const newMessage = ref('Hola Mundo!');
+    const newMessage = ref('');
     const sendMessage = () => {
       if (newMessage.value.trim() !== '') {
         store.dispatch('sendMessage', newMessage.value);
@@ -66,6 +66,6 @@ export default {
         margin-top: 0;
         display: flex;
         padding: 1em;
-     }
+    }
   }
 </style>
