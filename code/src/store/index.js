@@ -3,6 +3,7 @@ import UserRepository from '@/repositories/UserRepository';
 import HelloRepository from '../repositories/HelloRepository';
 import MessageRepository from '@/repositories/MessageRepository';
 
+import mutations from './importAllMutations';
 const store = createStore({
   state: {
     page: 1,
@@ -12,29 +13,7 @@ const store = createStore({
     helloMessage: '',
     messages: []
   },
-  mutations: {
-    join(state, user) {
-      state.user = user;
-      state.startDate = new Date().toISOString()
-    },
-    setHelloMessage(state, message) {
-      state.helloMessage = message;
-    },
-    setUser(state, user) {
-      state.user = user;
-    },
-    setMessages(state, messages) {
-      state.page++;
-      const sortedMessages = [...messages.data].reverse();
-      state.messages = [ ...sortedMessages, ...state.messages];
-    },
-    clean(state) {
-      state.page = 1;
-      state.startDate = null;
-      state.user = null;
-      state.messages = [];
-    }
-  },
+  mutations,
   actions: {
     async fetchMessages({ commit }) {
       const messages = await MessageRepository.fetchMessages({
