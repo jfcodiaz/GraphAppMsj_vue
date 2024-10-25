@@ -1,9 +1,11 @@
 function importAllActions(r) {
   return r.keys().reduce((actions, file) => {
-    const actionName = file.replace(/^\.\/(.*)\.\w+$/, '$1');
+    const fileName = file.split('/').pop();
+    const actionName = fileName.replace(/\.action\.js$/, '');
     actions[actionName] = r(file).default;
+    console.log("----actions", actions)
     return actions;
   }, {});
 }
 
-export default importAllActions(require.context('./actions', true, /\.action\.js$/));
+export default importAllActions(require.context('./', true, /\.action\.js$/));
