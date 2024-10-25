@@ -3,7 +3,7 @@ function importAllActions(r) {
     const fileName = file.split('/').pop();
     const actionName = fileName.replace(/\.action\.js$/, '');
     actions[actionName] = r(file).default;
-    console.log("----actions", actions)
+
     return actions;
   }, {});
 }
