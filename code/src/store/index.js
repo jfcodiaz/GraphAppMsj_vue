@@ -1,25 +1,14 @@
 import { createStore } from 'vuex';
-import mutations  from './importAllMutations';
+import state from './importAllStates';
 import actions from './importAllActions';
-console.log(mutations, actions)
+import getters from './importAllGetters';
+import mutations  from './importAllMutations';
+
 const store = createStore({
-  state: {
-    page: 1,
-    limit: 50,
-    startDate: new Date().toISOString(),
-    user: null,
-    helloMessage: '',
-    messages: []
-  },
+  state,
   mutations,
   actions,
-  getters: {
-    messages: (state) => state.messages,
-    getUser: (state) => state.user,
-    getHelloMessage(state) {
-      return state.helloMessage;
-    }
-  }
+  getters
 });
 
 store.dispatch('initializeUser');

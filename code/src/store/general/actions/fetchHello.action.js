@@ -1,4 +1,4 @@
-import HelloRepository from '../../repositories/HelloRepository';
+import HelloRepository from '../../../repositories/HelloRepository';
 
 export default async({ commit }) => {
   const message = await HelloRepository.fetchHello();
