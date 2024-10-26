@@ -1,3 +1,5 @@
 .env
 node_modules
 .history
+code/coverage
+code/.nyc_output
