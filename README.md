@@ -115,7 +115,7 @@ cp .env.example .env
 ```
 2. Start the containers
 ```sh
-docker-compose up 
+docker compose up 
 ```
 3. Open another terminal and enter the `chat-frontend` container
 ```sh
