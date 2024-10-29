@@ -34,8 +34,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
 
 COPY --from=build /app/dist /var/www/html
 COPY --from=backend /app/GraphAppMsj-Api/code /app/backend
-COPY docker/config/dist/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY docker/config/dist/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/production-dist/config/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/production-dist/config/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 EXPOSE 27017
