@@ -2,7 +2,7 @@ services:
   app-dist:
     build: 
       context: .
-      dockerfile: ./docker/images/node/Dockerfile 
+      dockerfile: ./docker/production-dist/Dockerfile 
       target: dist
     profiles:
       - dist
@@ -10,25 +10,32 @@ services:
     hostname: ${PROJECT_PREFIX}-dist
     ports:
       - ${APP_WEB_DIST_PORT}:80
-      - 27017:27017
-      - 4000:4000
+      - ${DIST_MONGO_DB}:27017
+      - ${DIST_WS_PORT}:4000
     env_file:
       - .env
 
-  node-app:
+  development:
     build:
       context: .
-      dockerfile: ./docker/images/node/Dockerfile
-      target: dev
-    image: node:lts
-    working_dir: /app/code
-    hostname: ${PROJECT_PREFIX}-node
-    container_name: ${PROJECT_PREFIX}
+      dockerfile: ./docker/images/development-testing/Dockerfile
+    container_name: ${PROJECT_PREFIX}-testing
     volumes:
-      - ./docker/config/dev/ssh:/root/.ssh/
-      - ./docker/config/dev/git/.gitconfig:/root/.gitconfig
-      - ./docker/config/dev/node/init-script.sh:/usr/local/bin/init-script.sh
       - .:/app
+      - ./docker/development-testing/config/ssh:/root/.ssh/
+      - ./docker/development-testing/config/git/.gitconfig:/headless/.gitconfig
+      - ./docker/development-testing/config/node/init-script.sh:/usr/local/bin/init-script.sh
+      - ./docker/development-testing/config/wallpaper.png:/headless/.config/bg_image.png
+    environment:
+      - START_YARN_SERVER=${START_YARN_SERVER}
+      - SERVER_MODE=${SERVER_MODE}
+      - VNC_PW=${DEV_VNC_PW}
+      - VNC_RESOLUTION=${DEV_VNC_RESOLUTION}
+    working_dir: /app/code
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
+      - ${DEV_VNC_PORT}:5901
+      - ${DEV_NO_VNC_PORT}:6901
       - ${VUE_DEV_PORT}:8080
     command: sh /usr/local/bin/init-script.sh
