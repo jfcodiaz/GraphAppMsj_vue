@@ -25,14 +25,13 @@
   }
 </script>
 <style lang="scss" scoped>
-  @use "@/styles/_variables.scss" as vars;
   menu {
     justify-content: end;
     display: flex;
     margin-bottom: 0.5em; 
   }
   button {
-    background-color: vars.$color-3;
+    background-color: $color-3;
     color: #d57d7d;
     border: none;
     border-radius: 0.3em;

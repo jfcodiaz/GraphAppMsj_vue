@@ -47,14 +47,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @use "@/styles/_variables.scss" as vars;
   .message {
     margin-bottom: 10px;
   }
 
   .autor {
     font-size: 0.8em;
-    color: vars.$color-3;
+    color: $color-3;
   }
   .message-box {
     max-width: 60%;
@@ -64,22 +63,22 @@ export default {
     position: relative;
     word-wrap: break-word;
 
-    color: vars.$color-4;
+    color: $color-4;
     font-family: sans-serif;
   }
 
   .message-box.received {
-    color: vars.$color-5;
+    color: $color-5;
   }
   
 .sent {
-    color: vars.$color-4;
+    color: $color-4;
     background-color: #dcf8c6;
     justify-self: end;
 }
 
 .received {
-    background-color: vars.$color-2;
+    background-color: $color-2;
 }
 
 .sent::after, .received::after {
@@ -99,7 +98,7 @@ export default {
 
 .received::after {
     border-width: 10px 10px 10px 0;
-    border-color: transparent vars.$color-2 transparent transparent;
+    border-color: transparent $color-2 transparent transparent;
     top: 10px;
     left: -9px;
 }

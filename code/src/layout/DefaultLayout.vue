@@ -21,26 +21,25 @@ export default {
 </script>
 
 <style lang="scss">
-  @use "@/styles/_variables.scss" as vars;
   input[type="submit"] {
-    background-color: vars.$bg-secondary;
-    border-color: vars.$bg-primary;
-    color: vars.$text-primary;
+    background-color: $bg-secondary;
+    border-color: $bg-primary;
+    color: $text-primary;
     border-style: solid;
     border-width: 1px;
     cursor: pointer;
   }
   input[type="text"] {
-    background-color: vars.$bg-quaternary;
+    background-color: $bg-quaternary;
     border-style: solid;
     border-width: 2px;
-    border-color: vars.$bg-primary;
-    color: vars.$text-secondary;
+    border-color: $bg-primary;
+    color: $text-secondary;
   }
 </style>
 
 <style lang="scss" ecoped>
-  @use "@/styles/_variables.scss" as vars;
+  
 
   * {
     margin: 0;
@@ -48,10 +47,10 @@ export default {
   }
 
   body {
-    background-color: vars.$bg-primary;
-    background: linear-gradient(12deg, vars.$bg-quaternary, 30%, vars.$bg-primary);
+    background-color: $bg-primary;
+    background: linear-gradient(12deg, $bg-quaternary, 30%, $bg-primary);
     height: 100vh;
-    color: vars.$text-primary;
+    color: $text-primary;
     font-family: sans-serif;
     font-size: 15px;
   }
@@ -61,7 +60,7 @@ export default {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 0px;
-    background-color: vars.$color-1;
+    background-color: $color-1;
     box-shadow: #000000b5 0px 0 19px 3px;
     display: flex;
     flex-direction: column;
