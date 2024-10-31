@@ -20,16 +20,14 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-  @use "@/styles/_variables.scss" as vars;
-  
   footer {
-    background-color: vars.$color-3;
+    background-color: $color-3;
     padding: 25px 20px 35px 20px;
     text-align: center;
     line-height: 1.5;
   }
   a {
-    color: vars.$text-primary;
+    color: $text-primary;
     font-weight: bold;
     text-decoration: none;
   }

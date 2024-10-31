@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/images/development-testing/Dockerfile
-    container_name: ${PROJECT_PREFIX}-testing
+    container_name: ${PROJECT_PREFIX}
     volumes:
       - .:/app
       - ./docker/development-testing/config/ssh:/root/.ssh/

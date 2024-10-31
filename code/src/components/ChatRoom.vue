@@ -18,10 +18,8 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
-@use "@/styles/_variables.scss" as vars;
   .chat-room {
-      background-color: rgba($color: vars.$bg-secondary, $alpha: 0.6);
+      background-color: rgba($color: $bg-secondary, $alpha: 0.6);
       padding: 50px;
       border-radius: 10px;
       max-height: 65vh;

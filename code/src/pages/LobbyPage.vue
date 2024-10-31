@@ -27,8 +27,6 @@ export default {
 
 <style scoped lang="scss">
 
-@use "@/styles/_variables.scss" as vars;
-
 h1 {
     margin: 0.5em 0;
     font-size: 2.5em;

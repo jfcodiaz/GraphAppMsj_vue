@@ -31,7 +31,6 @@ export default {
 
 </script>
 <style scoped lang="scss">
-  @use "@/styles/_variables.scss" as vars;
     .input-area {
       margin-top: 2em;
       display: flex;
@@ -40,11 +39,11 @@ export default {
     input {
         flex: 1;
         padding: 10px;
-        border: 1px solid vars.$color-4;
+        border: 1px solid $color-4;
         border-radius: 5px;
         font-size: 1.5em;
-        color: vars.$color-1;
-        background-color: vars.$color-2;
+        color: $color-1;
+        background-color: $color-2;
         width: 100%;
     }
 
@@ -52,14 +51,14 @@ export default {
         padding: 10px 20px;
         margin-left: 10px;
         border: none;
-        background-color: vars.$color-5;
+        background-color: $color-5;
         color: white;
         border-radius: 5px;
         cursor: pointer;
     }
 
     button:hover {
-        background-color: vars.$color-1;
+        background-color: $color-1;
     }
     @media (max-width: 700px) {
       .input-area  {
