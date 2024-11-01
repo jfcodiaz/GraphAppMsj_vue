@@ -1,6 +1,6 @@
 <template>
   <menu>
-    <button @click="close">
+    <button @click="close" class="btn-exit">
       x
     </button>
   </menu>

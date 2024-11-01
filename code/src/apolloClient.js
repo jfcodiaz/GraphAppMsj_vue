@@ -4,7 +4,7 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { ApolloClient, InMemoryCache, split, HttpLink } from '@apollo/client/core';
 
 // Obtener el host actual y construir las URLs dinámicamente
-const host = window.location.hostname;
+const host = process.env.VUE_APP_API_HOST ?? window.location.hostname;
 const protocol = window.location.protocol === 'https:' ? 'https' : 'http';
 const wsProtocol = protocol === 'https' ? 'wss' : 'ws';
 
@@ -22,7 +22,8 @@ const wsLink = new GraphQLWsLink(
     url: `${wsProtocol}://${host}:${wsPort}/graphql`,
   })
 );
-
+console.log('httpLink', httpLink);
+console.log('wsLink', wsLink);
 // Separar los enlaces de HTTP y WebSocket en función del tipo de operación
 const splitLink = split(
   ({ query }) => {

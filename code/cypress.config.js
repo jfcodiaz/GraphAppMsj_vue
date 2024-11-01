@@ -1,6 +1,8 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
+  video: true,
+  screenshotOnRunFailure: true,
   component: {
     devServer: {
       framework: "vue-cli",
