@@ -1,6 +1,6 @@
 <template>
   <footer>
-      <p> {{ currentYear }} GraphApp Message</p>
+      <p> {{ currentYear }} GraphApp Messenger</p>
       <a 
         href="https://github.com/jfcodiaz/GraphAppMsj_vue" 
         target="_blank"

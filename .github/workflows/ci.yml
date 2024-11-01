@@ -1,0 +1,64 @@
+name: CI/CD Pipeline
+on:
+  pull_request:
+    branches:
+      - master
+      - chore/27-configure-cypress-test-headless-for-git-actions
+
+  push:
+    branches:
+      - master
+      - chore/27-configure-cypress-test-headless-for-git-actions
+
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy or test'
+        required: true
+        default: chore/27-configure-cypress-test-headless-for-git-actions
+        type: string
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+
+    services:
+      api:
+        image: jfcodiaz/graphappmsj-api:latest-dev
+        ports:
+          - 4000:4000
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prepare Environment
+        run: |
+          cd code
+          cp .env.ci.example .env
+          yarn install 
+
+      - name: Run Cypress Tests
+        env:
+          VUE_APP_API_HOST: localhost
+        run: cd code && yarn run test:headless-testing
+
+      - name: Curl to localhost
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:4000)
+          echo "Response from localhost:4000 - HTTP status code: $response"
+
+      - name: Upload Screenshots and Videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path: |
+            code/cypress/screenshots
+            code/cypress/videos

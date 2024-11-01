@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1>GraphApp Messeger</h1>
+    <h1>GraphApp Messenger</h1>
   </header>
 </template>
 <style lang="scss" scoped>

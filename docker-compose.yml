@@ -18,7 +18,7 @@ services:
   development:
     build:
       context: .
-      dockerfile: ./docker/images/development-testing/Dockerfile
+      dockerfile: ./docker/development-testing/Dockerfile
     container_name: ${PROJECT_PREFIX}
     volumes:
       - .:/app
@@ -31,11 +31,15 @@ services:
       - SERVER_MODE=${SERVER_MODE}
       - VNC_PW=${DEV_VNC_PW}
       - VNC_RESOLUTION=${DEV_VNC_RESOLUTION}
+      - VUE_APP_GQL_HTTP_PORT=${VUE_APP_GQL_HTTP_PORT}
+      - VUE_APP_GQL_WS_PORT=${VUE_APP_GQL_WS_PORT}
+      - VUE_DEV_PORT=${VUE_DEV_PORT}
+      - PORT=${VUE_DEV_PORT}
     working_dir: /app/code
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
       - ${DEV_VNC_PORT}:5901
       - ${DEV_NO_VNC_PORT}:6901
-      - ${VUE_DEV_PORT}:8080
+      - ${VUE_DEV_PORT}:${VUE_DEV_PORT}
     command: sh /usr/local/bin/init-script.sh
