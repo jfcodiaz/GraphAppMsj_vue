@@ -3,23 +3,21 @@ on:
   pull_request:
     branches:
       - master
-      - chore/27-configure-cypress-test-headless-for-git-actions
 
   push:
     branches:
       - master
-      - chore/27-configure-cypress-test-headless-for-git-actions
 
   workflow_dispatch:
     inputs:
       branch:
         description: 'Branch to deploy or test'
         required: true
-        default: chore/27-configure-cypress-test-headless-for-git-actions
+        default: chore/39-configure-sonar-code
         type: string
 
 jobs:
-  cypress:
+  test-e2e:
     runs-on: ubuntu-latest
 
     services:
@@ -29,7 +27,7 @@ jobs:
           - 4000:4000
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.branch }}
 
@@ -58,7 +56,37 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-artifacts
+          name: coverage-report
           path: |
             code/cypress/screenshots
             code/cypress/videos
+            code/coverage
+
+  SonarCloud:
+    runs-on: ubuntu-latest
+    needs: [test-e2e]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download coverage report
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+          path: code
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=jfcodiaz
+            -Dsonar.projectKey=jfcodiaz_GraphAppMsj_vue
+            -Dsonar.javascript.lcov.reportPaths=code/coverage/lcov.info
+            -Dsonar.qualitygate.wait=true
+            -Dsonar.coverage.exclusions=**/code/cypress/**,**/code/coverage/**
+
+
