@@ -13,8 +13,10 @@
     "test:mocked": "NODE_ENV=test-mocked vue-cli-service test:e2e",
     "test:headless": "NODE_ENV=test-mocked vue-cli-service test:e2e --headless",
     "vue-cli": "vue-cli-service",
-    "lint": "vue-cli-service lint",
-    "lint:fix": "vue-cli-service lint --fix"
+    "lint": "vue-cli-service lint --ext .js,.vue cypress/**/*.js --no-fix",
+    "lint:fix": "vue-cli-service lint --ext .js,.vue cypress/**/*.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
@@ -24,9 +26,12 @@
     "core-js": "^3.8.3",
     "cypress": "^13.15.1",
     "date-fns": "^4.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "graphql": "^16.9.0",
     "graphql-ws": "^5.16.0",
     "nyc": "^17.1.0",
+    "prettier": "^3.3.3",
     "vue": "^3.2.13",
     "vue-router": "^4.4.5",
     "vuex": "^4.0.2"
@@ -42,6 +47,7 @@
     "@vue/eslint-config-standard": "^8.0.1",
     "cypress": "^9.7.0",
     "eslint": "^7.32.0",
+    "eslint-plugin-cypress": "^4.1.0",
     "eslint-plugin-vue": "^9.30.0",
     "sass": "^1.80.3",
     "sass-loader": "^16.0.2"

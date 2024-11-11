@@ -1,36 +1,29 @@
-import { gql } from '@apollo/client/core'
-import apolloClient from '../apolloClient'
+import { gql } from '@apollo/client/core';
+import apolloClient from '../apolloClient';
 
 export default {
-  async sendMessage ({ userId, text }) {
+  async sendMessage({ userId, text }) {
     const NEW_MESSAGE = gql`
-      mutation(
-        $userId: String!
-        $text: String!
-      ) {
+      mutation ($userId: String!, $text: String!) {
         message(userId: $userId, text: $text) {
           id
         }
       }
-    `
+    `;
     const response = await apolloClient.mutate({
       mutation: NEW_MESSAGE,
       variables: {
         userId,
-        text
+        text,
       },
-      fetchPolicy: 'network-only'
-    })
+      fetchPolicy: 'network-only',
+    });
 
-    return response.data.message
+    return response.data.message;
   },
-  async fetchMessages ({ startDate, page, limit }) {
+  async fetchMessages({ startDate, page, limit }) {
     const GET_MESSAGES = gql`
-      query(
-        $startDate: String!
-        $page: Int!
-        $limit: Int!
-      ) {
+      query ($startDate: String!, $page: Int!, $limit: Int!) {
         messages(startDate: $startDate, page: $page, limit: $limit) {
           data {
             id
@@ -46,17 +39,17 @@ export default {
           totalPages
         }
       }
-    `
+    `;
     const response = await apolloClient.query({
       query: GET_MESSAGES,
       variables: {
         startDate,
         page,
-        limit
+        limit,
       },
-      fetchPolicy: 'network-only'
-    })
+      fetchPolicy: 'network-only',
+    });
 
-    return response.data.messages
-  }
-}
+    return response.data.messages;
+  },
+};

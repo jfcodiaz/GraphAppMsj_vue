@@ -1,5 +1,5 @@
 export default async ({ commit }) => {
-  commit('clean')
+  commit('clean');
 
-  sessionStorage.removeItem('user')
-}
+  sessionStorage.removeItem('user');
+};

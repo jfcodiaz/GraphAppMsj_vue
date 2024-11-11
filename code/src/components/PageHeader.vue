@@ -4,7 +4,6 @@
   </header>
 </template>
 <style lang="scss" scoped>
-
 header {
   text-align: center;
   font-family: $font-family-primary;

@@ -6,13 +6,18 @@ describe('Chat Functionality with Multiple Users', () => {
   });
 
   Cypress.Commands.add('joinChat', (username) => {
-    cy.get('input[placeholder^="Enter your"]').clear().type(username);
+    cy.get('input[placeholder^="Enter your"]').as('input');
+    cy.get('@input').clear();
+    cy.get('@input').type(username);
+
     cy.get('input[type="submit"]').contains('Join').click();
   });
 
   Cypress.Commands.add('sendMessage', (message) => {
-    cy.get('input[placeholder^="Type your"]').type(message).type('{enter}');
-    cy.contains(message).should('exist'); // Confirm message is sent
+    cy.get('input[placeholder^="Type your"]').as('input');
+    cy.get('@input').type(message);
+    cy.get('@input').type('{enter}');
+    cy.contains(message).should('exist');
   });
 
   it('should allow two users to join the chat, send messages, and verify message exchange', () => {

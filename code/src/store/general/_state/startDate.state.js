@@ -1,1 +1,1 @@
-export default new Date().toISOString()
+export default new Date().toISOString();
