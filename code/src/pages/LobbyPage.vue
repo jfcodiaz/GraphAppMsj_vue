@@ -8,28 +8,27 @@
 </template>
 
 <script>
-import { onMounted } from 'vue'
-import ContentContainer from '@/components/ContentContainer.vue'
-import LobbyForm from '@/components/LobbyForm.vue'
+import { onMounted } from 'vue';
+import ContentContainer from '@/components/ContentContainer.vue';
+import LobbyForm from '@/components/LobbyForm.vue';
 
 export default {
   components: {
     ContentContainer,
-    LobbyForm
+    LobbyForm,
   },
-  setup () {
+  setup() {
     onMounted(() => {
-      document.title = 'GraphApp Messenger :: Lobby Page'
-    })
-  }
-}
+      document.title = 'GraphApp Messenger :: Lobby Page';
+    });
+  },
+};
 </script>
 
 <style scoped lang="scss">
-
 h1 {
-    margin: 0.5em 0;
-    font-size: 2.5em;
+  margin: 0.5em 0;
+  font-size: 2.5em;
 }
 
 .lobby {
@@ -49,9 +48,9 @@ h1 {
 }
 
 @media (max-width: 600px) {
-    .lobby {
-        padding: 10px;
-        width: 70%;
-    }
+  .lobby {
+    padding: 10px;
+    width: 70%;
+  }
 }
 </style>

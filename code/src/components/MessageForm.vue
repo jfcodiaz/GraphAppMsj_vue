@@ -1,24 +1,27 @@
 <template>
   <div class="input-area">
-    <input v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type your message..." />
+    <input
+      v-model="newMessage"
+      @keyup.enter="sendMessage"
+      placeholder="Type your message..."
+    />
     <button @click="sendMessage">Send</button>
-    <br>
+    <br />
   </div>
 </template>
 
 <script setup>
-import { useStore } from 'vuex'
-import { ref } from 'vue'
+import { useStore } from 'vuex';
+import { ref } from 'vue';
 
-const store = useStore()
-const newMessage = ref('')
+const store = useStore();
+const newMessage = ref('');
 const sendMessage = () => {
   if (newMessage.value.trim() !== '') {
-    store.dispatch('sendMessage', newMessage.value)
-    newMessage.value = ''
+    store.dispatch('sendMessage', newMessage.value);
+    newMessage.value = '';
   }
-}
-
+};
 </script>
 
 <style scoped lang="scss">
@@ -52,10 +55,10 @@ button:hover {
   background-color: $color-1;
 }
 @media (max-width: 700px) {
-  .input-area  {
-  margin-top: 0;
-  display: flex;
-  padding: 1em;
+  .input-area {
+    margin-top: 0;
+    display: flex;
+    padding: 1em;
   }
 }
 </style>

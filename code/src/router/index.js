@@ -1,33 +1,33 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Lobby from '../pages/LobbyPage.vue'
-import Room from '../pages/RoomPage.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import Lobby from '../pages/LobbyPage.vue';
+import Room from '../pages/RoomPage.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Lobby',
-    component: Lobby
+    component: Lobby,
   },
   {
     path: '/room/',
     name: 'Room',
     component: Room,
-    props: true
-  }
-]
+    props: true,
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-})
+  routes,
+});
 
 router.beforeEach((to, from, next) => {
-  const storedUser = sessionStorage.getItem('user')
+  const storedUser = sessionStorage.getItem('user');
   if (!storedUser && to.path !== '/') {
-    next('/')
+    next('/');
   } else {
-    next()
+    next();
   }
-})
+});
 
-export default router
+export default router;
