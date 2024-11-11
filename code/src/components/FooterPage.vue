@@ -1,8 +1,8 @@
 <template>
   <footer>
       <p> {{ currentYear }} GraphApp Messenger</p>
-      <a 
-        href="https://github.com/jfcodiaz/GraphAppMsj_vue" 
+      <a
+        href="https://github.com/jfcodiaz/GraphAppMsj_vue"
         target="_blank"
       >
         JFcoDíaz
@@ -10,15 +10,13 @@
   </footer>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      currentYear: new Date().getFullYear()
-    };
-  }
-};
+<script setup>
+import { ref } from 'vue'
+
+const currentYear = ref(new Date().getFullYear())
+
 </script>
+
 <style scoped lang="scss">
   footer {
     background-color: $color-3;
@@ -39,6 +37,6 @@ export default {
       justify-content: space-between;
       flex-direction: row;
       ;
-    }  
+    }
   }
 </style>

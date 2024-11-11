@@ -2,21 +2,17 @@
   <div class="chat-room">
     <MenuBar/>
     <MessagesList/>
-    <MessageForm/>        
+    <MessageForm/>
   </div>
 </template>
-<script>
-import MessageForm from './MessageForm.vue';
-import MessagesList from './MessagesList.vue';
+
+<script setup>
+import MessageForm from './MessageForm.vue'
+import MessagesList from './MessagesList.vue'
 import MenuBar from './MenuBar.vue'
-export default {
-  components: {
-    MessagesList,
-    MessageForm,
-    MenuBar
-  }
-}
+
 </script>
+
 <style scoped lang="scss">
   .chat-room {
       background-color: rgba($color: $bg-secondary, $alpha: 0.6);

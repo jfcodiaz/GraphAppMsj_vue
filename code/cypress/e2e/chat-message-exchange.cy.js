@@ -2,8 +2,7 @@ const { faker } = require('@faker-js/faker');
 
 describe('Chat Functionality with Multiple Users', () => {
   beforeEach(() => {
-    const baseUrl = Cypress.config('baseUrl');
-    cy.visit(baseUrl);
+    cy.visit('/');
   });
 
   Cypress.Commands.add('joinChat', (username) => {

@@ -1,1 +1,1 @@
-export default state => state.messages;
+export default state => state.messages

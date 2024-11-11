@@ -1,11 +1,11 @@
-import MessageRepository from '@/repositories/MessageRepository';
+import MessageRepository from '@/repositories/MessageRepository'
 
 export default async ({ commit, state }) => {
   const messages = await MessageRepository.fetchMessages({
     startDate: state.startDate,
-    page: state.page, 
+    page: state.page,
     limit: state.limit
-  });
+  })
 
-  commit('setMessages', messages);
+  commit('setMessages', messages)
 }
