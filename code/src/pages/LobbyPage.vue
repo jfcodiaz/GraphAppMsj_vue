@@ -8,21 +8,21 @@
 </template>
 
 <script>
-import { onMounted } from 'vue';
-import ContentContainer from '@/components/ContentContainer.vue';
-import LobbyForm from '@/components/LobbyForm.vue';
+import { onMounted } from 'vue'
+import ContentContainer from '@/components/ContentContainer.vue'
+import LobbyForm from '@/components/LobbyForm.vue'
 
 export default {
   components: {
     ContentContainer,
     LobbyForm
   },
-  setup() {
+  setup () {
     onMounted(() => {
-      document.title = 'GraphApp Messenger :: Lobby Page';
-    });
-  },
-};
+      document.title = 'GraphApp Messenger :: Lobby Page'
+    })
+  }
+}
 </script>
 
 <style scoped lang="scss">

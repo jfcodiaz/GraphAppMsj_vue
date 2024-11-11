@@ -5,19 +5,13 @@
       <slot></slot>
     </div>
     <FooterPage/>
-</div>
+  </div>
 </template>
 
-<script>
-import FooterPage from '@/components/FooterPage.vue';
-import PageHeader from '@/components/PageHeader.vue';
+<script setup>
+import FooterPage from '@/components/FooterPage.vue'
+import PageHeader from '@/components/PageHeader.vue'
 
-export default {
-  components: {
-    PageHeader,
-    FooterPage
-  }
-};
 </script>
 
 <style lang="scss">
@@ -39,8 +33,6 @@ export default {
 </style>
 
 <style lang="scss" ecoped>
-  
-
   * {
     margin: 0;
     padding: 0;
@@ -83,6 +75,4 @@ export default {
       box-shadow: none;
     }
   }
-
-  
 </style>

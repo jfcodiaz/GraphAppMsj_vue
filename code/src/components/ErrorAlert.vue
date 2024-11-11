@@ -1,16 +1,21 @@
 <template>
   <p v-if="error" class="error-message">{{ error }}</p>
 </template>
-<script>
-  export default {
-    props: {
-      error: {
-        type: String,
-        required: true,
-      },
-    },
-  };
+
+<script setup>
+import { toRefs, defineProps } from 'vue'
+
+const props = defineProps({
+  error: {
+    type: String,
+    required: true
+  }
+})
+
+const { error } = toRefs(props)
+
 </script>
+
 <style scoped>
   .error-message {
     background-color: #23283557;

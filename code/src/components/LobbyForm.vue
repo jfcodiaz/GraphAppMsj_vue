@@ -2,11 +2,11 @@
   <form @submit.prevent="login">
     <p>Please enter your username:</p>
     <p>
-      <input 
-        v-model="username" 
+      <input
+        v-model="username"
         @input="validateUsername"
-        type="text" 
-        placeholder="Enter your username" 
+        type="text"
+        placeholder="Enter your username"
       />
     </p>
     <ErrorAlert :error="errorMessage"/>
@@ -14,68 +14,54 @@
   </form>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
-import ErrorAlert from './ErrorAlert.vue';
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import ErrorAlert from './ErrorAlert.vue'
 
-export default {
-  components: {
-    ErrorAlert,
-  },
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-    const username = ref('');
-    const errorMessage = ref('');
+const store = useStore()
+const router = useRouter()
+const username = ref('')
+const errorMessage = ref('')
 
-    onMounted(() => {
-      const savedUsername = localStorage.getItem('username');
-      if (savedUsername) {
-        username.value = savedUsername;
-      }
-    });
+onMounted(() => {
+  const savedUsername = localStorage.getItem('username')
+  if (savedUsername) {
+    username.value = savedUsername
+  }
+})
 
-    const validateUsername = (event) => {
-      if (event.inputType === 'insertLineBreak') {
-        return event;
-      }
-      const regex = /^[a-zA-Z0-9]*$/; // Solo letras y números
-      if (!regex.test(event.target.value)) {
-        username.value = event.target.value.replace(/[^a-zA-Z0-9]/g, '');
-      }
-    };
+const validateUsername = (event) => {
+  if (event.inputType === 'insertLineBreak') {
+    return event
+  }
+  const regex = /^[a-zA-Z0-9]*$/ // Solo letras y números
+  if (!regex.test(event.target.value)) {
+    username.value = event.target.value.replace(/[^a-zA-Z0-9]/g, '')
+  }
+}
 
-    const login = async () => {
-      errorMessage.value = '';
+const login = async () => {
+  errorMessage.value = ''
 
-      // Validar nombre de usuario
-      if (username.value.trim() === '') {
-        errorMessage.value = 'Please enter a username.';
-        return;
-      } else if (/^\d/.test(username.value)) {
-        errorMessage.value = 'The username cannot start with a number.';
-        return;
-      }
+  // Validar nombre de usuario
+  if (username.value.trim() === '') {
+    errorMessage.value = 'Please enter a username.'
+    return
+  } else if (/^\d/.test(username.value)) {
+    errorMessage.value = 'The username cannot start with a number.'
+    return
+  }
 
-      try {
-        await store.dispatch('join', { username: username.value });
-        localStorage.setItem('username', username.value);
-        router.push('/room');
-      } catch (error) {
-        errorMessage.value = 'An error occurred while joining the room.';
-      }
-    };
-
-    return {
-      username,
-      errorMessage,
-      login,
-      validateUsername,
-    };
-  },
-};
+  try {
+    await store.dispatch('join', { username: username.value })
+    localStorage.setItem('username', username.value)
+    router.push('/room')
+  } catch (error) {
+    errorMessage.value = 'An error occurred while joining the room.'
+  }
+}
 </script>
 
 <style scoped>

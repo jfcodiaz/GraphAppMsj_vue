@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import ChatRoom from '@/components/ChatRoom.vue';
+import ChatRoom from '@/components/ChatRoom.vue'
 export default {
-    components: {
-        ChatRoom
-    }
-};
+  components: {
+    ChatRoom
+  }
+}
 </script>

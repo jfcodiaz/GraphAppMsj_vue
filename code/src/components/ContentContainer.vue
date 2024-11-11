@@ -3,13 +3,7 @@
     <slot></slot>
   </div>
 </template>
-<script>
-export default {
-  setup() {
-    return {};
-  }
-}
-</script>
+
 <style scoped lang="scss">
 .container {
   max-width: 1200px;

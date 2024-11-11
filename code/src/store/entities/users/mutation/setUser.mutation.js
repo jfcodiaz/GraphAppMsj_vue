@@ -1,3 +1,3 @@
 export default (state, user) => {
-  state.user = user;
+  state.user = user
 }
