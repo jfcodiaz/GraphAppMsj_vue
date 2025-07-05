@@ -1,8 +1,17 @@
 <template>
   <div class="messages" ref="messageList" @scroll="handleScroll">
     <div v-for="message in messages" :key="message.id" class="message">
-      <MenssageBox :message="message" :me="me" />
+      <MenssageBox
+        :message="message"
+        :me="me"
+        @image-click="handleImageClick"
+      />
     </div>
+    <ImageModal
+      :is-visible="modalVisible"
+      :image-src="modalImageSrc"
+      @close="closeModal"
+    />
   </div>
 </template>
 
@@ -10,6 +19,7 @@
 import { computed, watch, ref, nextTick } from 'vue';
 import { useStore } from 'vuex';
 import MenssageBox from './MessageBox.vue';
+import ImageModal from './ImageModal.vue';
 import { useSubscription } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 
@@ -18,6 +28,7 @@ const MESSAGE_CREATED_SUBSCRIPTION = gql`
     messageCreated {
       id
       text
+      images
       userId
       createdAt
       user {
@@ -33,6 +44,20 @@ const messages = computed(() => store.getters.messages);
 const me = computed(() => store.getters.getUser);
 const fetchMessages = () => store.dispatch('fetchMessages');
 const messageList = ref(null);
+
+// Image modal state
+const modalVisible = ref(false);
+const modalImageSrc = ref('');
+
+const handleImageClick = (imageSrc) => {
+  modalImageSrc.value = imageSrc;
+  modalVisible.value = true;
+};
+
+const closeModal = () => {
+  modalVisible.value = false;
+  modalImageSrc.value = '';
+};
 
 const handleScroll = () => {
   if (messageList.value && messageList.value.scrollTop === 0) {

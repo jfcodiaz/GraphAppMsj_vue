@@ -2,6 +2,8 @@
 node_modules
 /dist
 
+# Test files (for development only)
+src/pages/ImageTestPage.vue
 
 # local env files
 .env.local
