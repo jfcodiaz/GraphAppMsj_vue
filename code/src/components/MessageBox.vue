@@ -3,15 +3,24 @@
     <div class="autor" v-if="messageClass === 'received'">
       <b>{{ message.user.username }}</b> :
     </div>
-    {{ message.text }}
+    <div v-if="message.text" class="message-text">
+      {{ message.text }}
+    </div>
+    <ImageGallery
+      v-if="message.images && message.images.length > 0"
+      :images="message.images"
+      @image-click="handleImageClick"
+    />
     <TimeAgo :date-string="message.createdAt" />
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
-// import { formatDistanceToNow } from 'date-fns'
+import { computed, defineEmits } from 'vue';
 import TimeAgo from './TimeAgo.vue';
+import ImageGallery from './ImageGallery.vue';
+
+const emit = defineEmits(['image-click']);
 
 const props = defineProps({
   message: {
@@ -30,10 +39,10 @@ const isSent = () => {
 };
 
 const messageClass = computed(isSent);
-/*  const formattedDate = computed(() =>
-    formatDistanceToNow(new Date(props.message.createdAt), { addSuffix: true })
-  )
-    */
+
+const handleImageClick = (imageSrc) => {
+  emit('image-click', imageSrc);
+};
 </script>
 
 <style scoped lang="scss">
@@ -56,6 +65,10 @@ const messageClass = computed(isSent);
 
   color: $color-4;
   font-family: sans-serif;
+}
+
+.message-text {
+  margin-bottom: 5px;
 }
 
 .message-box.received {

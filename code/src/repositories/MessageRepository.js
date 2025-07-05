@@ -2,10 +2,10 @@ import { gql } from '@apollo/client/core';
 import apolloClient from '../apolloClient';
 
 export default {
-  async sendMessage({ userId, text }) {
+  async sendMessage({ userId, text, images = [] }) {
     const NEW_MESSAGE = gql`
-      mutation ($userId: String!, $text: String!) {
-        message(userId: $userId, text: $text) {
+      mutation ($userId: String!, $text: String!, $images: [String!]) {
+        message(userId: $userId, text: $text, images: $images) {
           id
         }
       }
@@ -15,6 +15,7 @@ export default {
       variables: {
         userId,
         text,
+        images,
       },
       fetchPolicy: 'network-only',
     });
@@ -29,6 +30,7 @@ export default {
             id
             userId
             text
+            images
             createdAt
             user {
               id
